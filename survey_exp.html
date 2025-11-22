@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Action Classification Research Survey</title>
+    <style>
+        /* CSS Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .quiz-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+        }
+        .page {
+            display: none; /* Hide all pages by default */
+        }
+        .page.active {
+            display: block; /* Show the current active page */
+        }
+        /* Video styles */
+        .video-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .video-container video {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        /* Option button styles */
+        .options-container button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #e9ecef;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .options-container button:hover {
+            background-color: #cfe2ff;
+        }
+        .next-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .next-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    
+    <div id="page1" class="page active">
+        <h1>🎥 A Comparative Analysis of Action Classification between Large Vision-Language Models and Human Observers </h1>
+        
+        <h2>Invitation to Participate</h2>
+        <p>Hello,</p>
+        <p>You are cordially invited to participate in a research study titled: <strong>"A Comparative Analysis of Action Classification between Large Vision-Language Models and Human Observers."</strong></p>
+        <p>This research is being conducted by the Principal Investigator, Tzu Ling Liu (ywa826@usask.ca), at the University of Saskatchewan (Usask).</p>
+
+        <h2>Purpose of the Study</h2>
+        <p>The primary goal of this research is to compare the performance of <strong>human observers</strong> with that of <strong>Large Vision-Language Models (LVLMs)</strong> in <strong>video action classification</strong> tasks. Specifically, we aim to measure the <strong>accuracy of human subjective judgment</strong> and their corresponding <strong>reaction time</strong> when identifying different action categories shown in short video clips. Your participation will provide crucial human baseline data for this comparative study.</p>
+
+        <h2>Participation Details & Confidentiality</h2>
+        <ul>
+            <li><strong>Eligibility:</strong> You must be an adult with normal visual capability and able to understand the task instructions.</li>
+            <li><strong>Time Commitment:</strong> The estimated time required to complete this survey is approximately <strong>10 minutes</strong>.</li>
+            <li><strong>Voluntary Nature:</strong> Your participation is entirely voluntary. You may stop or refuse to continue at any time without penalty.</li>
+            <li><strong>Anonymity & Data Usage:</strong> This survey is conducted <strong>anonymously</strong>. All collected data will be processed via de-identification and used solely for academic research purposes.</li>
+            <li><strong>Irreversible Submission:</strong> Due to the anonymous nature, once you submit your responses, it will be impossible to identify and subsequently remove your data.</li>
+        </ul>
+        
+        <hr>
+        
+        <h2>✅ Consent Statement</h2>
+        <p>By clicking the button below, you are confirming that you have read and understood the information provided and voluntarily consent to participate in this anonymous research study.</p>
+
+        <button class="next-btn" onclick="nextPage(2)">I agree and want to proceed to demographics</button>
+        
+    </div>
+
+    <div id="page2" class="page">
+        <h2>🧑‍🤝‍🧑 Demographic Information (Anonymous)</h2>
+        <p>Please fill in the following information. All data will be used for statistical analysis only.</p>
+        
+        <label for="age">Age (Years):</label>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label>Gender:</label>
+        <select id="gender" name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other / Prefer not to say</option>
+        </select><br><br>
+
+        <label for="background">Professional Background (Select the most relevant):</label>
+        <select id="background" name="background">
+            <option value="none">None / Not Applicable</option>
+            
+            <option value="cv">Computer Vision / Image Processing</option>
+            <option value="ai_ml">Artificial Intelligence / Machine Learning</option>
+            <option value="cs">Computer Science / Software Engineering</option>
+            <option value="data">Data Science / Data Analytics</option>
+            <option value="robotics">Robotics / Automation</option>
+            
+            <option value="psychology">Psychology / Experimental Psychology</option>
+            <option value="neuroscience">Neuroscience / Cognitive Science</option>
+            <option value="hci">Human-Computer Interaction (HCI)</option>
+            <option value="linguistics">Linguistics / Natural Language Processing (NLP)</option>
+            
+            <option value="ee">Electrical Engineering / Electronic Engineering</option>
+            <option value="me">Mechanical Engineering</option>
+            <option value="biomed">Biomedical Engineering</option>
+            <option value="physics">Physics</option>
+            <option value="math">Mathematics / Statistics</option>
+            
+            <option value="sports">Sports Science / Kinesiology</option>
+            <option value="pt_ot">Physical Therapy / Occupational Therapy</option>
+            <option value="medicine">Medicine / Healthcare</option>
+            
+            <option value="business">Business / Management</option>
+            <option value="humanities">Humanities / Social Sciences (General)</option>
+            <option value="art_design">Art / Design / Media Studies</option>
+            
+            <option value="other_specific">Others</option>
+        </select><br><br>
+
+        <button class="next-btn" onclick="startQuiz()">Start Classification Tasks</button>
+    </div>
+    <!-- Instruction Page -->
+    <div id="page3" class="page">
+        <h2>📌 Instructions for the Upcoming Action Classification Task</h2>
+
+        <p>In the next section, you will watch a series of short video clips and determine the category of human action shown in each video.</p>
+
+        <h3>🎯 Task Procedure</h3>
+        <ul>
+            <li>The moment you click to start the video, the reaction time will begin recording.</li>
+            <li>You must select an answer <strong>as quickly and accurately as possible</strong>.</li>
+            <li>Your response speed and correctness will both be analyzed.</li>
+        </ul>
+
+        <h3>🧠 Action Categories</h3>
+        <p>There will be <strong>8 possible action categories</strong> for each video:</p>
+        <div style="background:#eef5ff; padding:10px; border-radius:8px; border:1px solid #d0d8e8;">
+            Drink, Jump, Pick, Pour, Push, Run, Walk, Wave
+        </div>
+
+        <h3>📹 Number of Trials</h3>
+        <p>You will classify a total of <strong>24 video clips</strong>. Each clip will display only one of the eight actions.</p>
+
+        <h3>⚠️ Important Notes</h3>
+        <ul>
+            <li>Once you select an answer, the next video will automatically appear.</li>
+            <li>Please stay focused and avoid external distractions.</li>
+            <li>There are no right or wrong strategies—respond naturally.</li>
+        </ul>
+
+        <button class="next-btn" onclick="beginClassification()">Start the Classification Task</button>
+
+    </div>
+
+    <div id="quiz-page" class="page">
+        <h3 id="question-title"></h3>
+        
+        <div class="video-container">
+            <div id="video-embed-container" style="width: 640px; height: 360px; margin: 0 auto;"></div>
+            <p style="font-size: small;">*Please select your answer as quickly as possible.</p>
+        </div>
+
+        <div id="options-container" class="options-container">
+            </div>
+    </div>
+
+    <div id="finish-page" class="page">
+        <h1>🎉 Thank You for Your Participation</h1>
+
+        <p>Your responses have been successfully recorded and will be included in the analysis phase of this research study.</p>
+        <p>Your contribution is valuable and will assist in advancing our understanding of human performance in video-based action recognition.</p>
+
+        <p>If you have any questions regarding the study, please contact <strong>ywa826@usask.ca</strong>.</p>
+
+        <p>Sincerely appreciate your time and participation.</p>
+    </div>
+
+</div>
+
+<script>
+    // JavaScript Logic
+    const quizData = [
+        {
+            videoUrl: "exp_videos/Drink1.mp4", //drink1
+            correctAnswer: "Drink",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        // {
+        //     videoUrl: "https://drive.google.com/file/d/1B8hlLNM_n0yFRAVls7PoxVGjn-jhgLST/preview?autoplay=1", //drink2
+        //     correctAnswer: "Drink",
+        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        // },
+        // {
+        //     videoUrl: "https://drive.google.com/file/d/1qjqepZEw1_3LDlpb4tFXjIOnPFF6cxAT/preview?autoplay=1", //drink3
+        //     correctAnswer: "Drink",
+        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        // },
+        // {
+        //     videoUrl: "https://drive.google.com/file/d/1A0952HA94e5Xe8_mWFCValwWrCfCp1mK/preview?autoplay=1", 
+        //     correctAnswer: "Jump",
+        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        // },
+        // {
+        //     videoUrl: "https://drive.google.com/file/d/1__4NOysQJzUWAraGaJqNfNZb3tgVxBXi/preview?autoplay=1", 
+        //     correctAnswer: "Pick",
+        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        // },
+        
+        // {
+        //     videoUrl: "https://drive.google.com/file/d//preview", 
+        //     correctAnswer: "",
+        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        // },
+        // {
+        //     videoUrl: "https://drive.google.com/file/d//preview", 
+        //     correctAnswer: "",
+        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        // },
+        // {
+        //     videoUrl: "https://drive.google.com/file/d//preview", 
+        //     correctAnswer: "",
+        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        // },
+        // {
+        //     videoUrl: "https://drive.google.com/file/d//preview", 
+        //     correctAnswer: "",
+        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        // },
+        // {
+        //     videoUrl: "https://drive.google.com/file/d//preview", 
+        //     correctAnswer: "",
+        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        // },
+        // {
+        //     videoUrl: "https://drive.google.com/file/d//preview", 
+        //     correctAnswer: "",
+        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        // },
+        // // **ADD MORE QUESTIONS HERE**
+        // {
+        //     videoUrl: "C:\\Users\\chloe\\OneDrive\\文件\\CMPT865\\Project\\video\\(HQ)_Rock_Climbing_-_Free_Solo_Speed_Climb_-_Dan_Osman_climb_f_cm_np1_ba_med_0.avi",
+        //     correctAnswer: "Eating",
+        //     options: ["Drinking", "Eating", "Dancing", "Reading"]
+        // }
+    ];
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // change elements
+        }
+    }
+    function addOriginalIndex(array) {
+        array.forEach((question, index) => {
+            // 確保題目物件有這個屬性
+            question.originalIndex = index;
+        });
+    }
+    addOriginalIndex(quizData);
+    // before starting the quiz, shuffle the questions
+    shuffleArray(quizData);
+    
+
+    let currentPage = 1;
+    let currentQuestionIndex = 0;
+    let startTime;
+    let uniqueID = null;
+    const allResponses = {
+        demographics: {},
+        questions: []
+    };
+
+    /**
+     * Switches the active page display.
+     * @param {number} pageNum - The page number to display (1:Intro, 2:Demographics, 3:Quiz, 4:Finish)
+     */
+    function nextPage(pageNum) {
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+        document.getElementById(`page${pageNum}`).classList.add('active');
+        currentPage = pageNum;
+    }
+
+    /**
+     * Transitions from demographics to the quiz page and saves demographics data.
+     */
+    function startQuiz() {
+        // Save demographic data
+        uniqueID = 'UID-' + Date.now() + Math.floor(Math.random() * 1000); 
+
+        // 2. 儲存基本資料
+        allResponses.demographics = {
+            unique_id: uniqueID, 
+            age: document.getElementById('age').value,
+            gender: document.getElementById('gender').value,
+            background: document.getElementById('background').value
+        };
+
+        if (!allResponses.demographics.age || allResponses.demographics.age <= 0) {
+            alert("Please enter a valid age!");
+            return;
+        }
+
+        nextPage(3); // Go to instructions page
+    }
+
+    /**
+     * Loads and displays the next question.
+     * @param {number} index - The index of the current question.
+     */
+    /**
+     * Loads and displays the next question using YouTube iframe.
+     * @param {number} index - The index of the current question.
+     */
+    function removeCover() {
+        const cover = document.getElementById('cover-overlay');
+        const iframe = document.getElementById('video-iframe');
+
+        // 1. 設定 reaction time 的起點（如果你希望從「開始看影片」算）
+        startTime = performance.now();
+
+        if (iframe) {
+            // 2. 在 Google Drive preview URL 後面加上 autoplay=1
+            //    例如原本是 .../preview  ->  .../preview?autoplay=1
+            let src = iframe.src;
+
+            if (!src.includes('autoplay=1')) {
+                const separator = src.includes('?') ? '&' : '?';
+                iframe.src = src + separator + 'autoplay=1';
+            }
+        }
+
+        if (cover) {
+            cover.remove();
+        }
+    }
+
+
+    function loadQuestion(index) {
+        if (index >= quizData.length) {
+            // 題目全部做完
+            finishQuiz();
+            return;
+        }
+
+        const question = quizData[index];
+        const embedContainer = document.getElementById('video-embed-container');
+        const optionsContainer = document.getElementById('options-container');
+        const questionTitle = document.getElementById('question-title');
+
+        // 題目標題
+        questionTitle.textContent = `Question ${index + 1}/${quizData.length}: Action Classification Task`;
+
+        // 使用 Google Drive 的 preview iframe
+        embedContainer.innerHTML = `
+            <div id="video-wrapper" style="position: relative; width: 640px; height: 360px;">
+                <iframe
+                    id="video-iframe"
+                    src="${question.videoUrl}"
+                    width="640"
+                    height="360"
+                    frameborder="0"
+                    allow="autoplay"
+                    allowfullscreen>
+                </iframe>
+                <div 
+                    id="cover-overlay" 
+                    style="
+                        position: absolute; 
+                        top: 0; 
+                        left: 0; 
+                        width: 100%; 
+                        height: 100%; 
+                        background-color: black; 
+                        z-index: 10; 
+                        display: flex; /* 使用 flexbox 居中文本 */
+                        justify-content: center;
+                        align-items: center;
+                        color: white; /* 文本顏色 */
+                        font-size: 24px; /* 文本大小 */
+                        cursor: pointer;
+                    "
+                    onclick="removeCover()">
+                    Click to Start Video
+                </div>
+            </div>
+        `;
+      
+        // 建立選項按鈕
+        optionsContainer.innerHTML = '';
+        question.options.forEach(option => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.onclick = () => recordResponse(option);
+            optionsContainer.appendChild(button);
+        });
+
+        // 計時開始
+        // 計時開始
+        startTime = performance.now();
+
+        // startTime = performance.now();
+        currentQuestionIndex = index;
+    }
+
+
+    function beginClassification() {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById('quiz-page').classList.add('active');
+        loadQuestion(0);
+    }
+
+    /**
+     * Records the participant's answer and reaction time.
+     * @param {string} selectedAnswer - The answer chosen by the participant.
+     */
+    function recordResponse(selectedAnswer) {
+        // Stop the timer
+        const endTime = performance.now();
+        const reactionTime = (endTime - startTime) / 1000; // Convert to seconds (s)
+
+        const currentQuestion = quizData[currentQuestionIndex];
+        const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
+        const originalQuestionNumber = currentQuestion.originalIndex + 1;
+
+        // Store the result for this question
+        allResponses.questions.push({
+            q_index: originalQuestionNumber,
+            video_url: currentQuestion.videoUrl,
+            selected_answer: selectedAnswer,
+            correct_answer: currentQuestion.correctAnswer,
+            is_correct: isCorrect,
+            reaction_time_s: reactionTime.toFixed(3) // Fixed to three decimal places
+        });
+
+        // Load the next question
+        loadQuestion(currentQuestionIndex + 1);
+    }
+
+    
+
+    /**
+
+    * Ends the quiz and sends data to the Google Apps Script backend.
+
+    */
+
+    function finishQuiz() {
+
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+
+        document.getElementById('finish-page').classList.add('active');
+
+
+
+        // **************** 替換成您從 Apps Script 獲得的 URL ****************
+
+        const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyytLSsCE_e6OOk3j71M-gJzGb7kLbTvOViztpTKaJJE63O4L85_16TuhvfRP2cs1_A/exec'; 
+
+        // ***************************************************************
+
+
+
+        // 使用 Fetch API 將 JSON 數據發送到 Google Apps Script
+
+        fetch(GOOGLE_APP_SCRIPT_URL, {
+
+            method: 'POST',
+
+            mode: 'no-cors', // 必須設定為 no-cors，因為是跨域請求
+
+            headers: {
+
+                'Content-Type': 'text/plain' // 使用 text/plain 避免複雜的 CORS 預檢
+
+            },
+
+            body: JSON.stringify(allResponses)
+
+        })
+
+        .then(response => {
+
+            // 成功發送後，在 Console 記錄成功，但對用戶不顯示任何資訊
+
+            console.log("Data successfully sent to Google Sheet via Apps Script.");
+
+        })
+
+        .catch(error => {
+
+            // 如果發送失敗，通知研究者 (在 Console 中顯示)
+
+            console.error('Error sending data to Google Sheet:', error);
+
+            console.log("TESTER VIEW: Please report this error: Data submission failed.");
+
+        });
+
+
+
+        // 依然保留 console.log 方便研究者自己測試
+
+        console.log("--- RESEARCH DATA START (Local Copy) ---");
+
+        console.log(JSON.stringify(allResponses, null, 2));
+
+        console.log("--- RESEARCH DATA END ---");
+
+    }
+
+</script>
+</body>
+</html>
