@@ -165,7 +165,7 @@
             <option value="other_specific">Others</option>
         </select><br><br>
 
-        <button class="next-btn" onclick="startQuiz()">Start Classification Tasks</button>
+        <button class="next-btn" onclick="startQuiz()">Next</button>
     </div>
     <!-- Instruction Page -->
     <div id="page3" class="page">
@@ -233,6 +233,121 @@
             correctAnswer: "Drink",
             options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
         },
+        {
+            videoUrl: "exp_videos/Drink2.mp4", //drink2
+            correctAnswer: "Drink",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Drink3.mp4", //drink3
+            correctAnswer: "Drink",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Jump1.mp4", //jump1
+            correctAnswer: "Jump",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Jump2.mp4", //jump2
+            correctAnswer: "Jump",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Jump3.mp4", //jump3
+            correctAnswer: "Jump",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Pour1.mp4", //pour1
+            correctAnswer: "Pour",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Pour2.mp4", //pour2
+            correctAnswer: "Pour",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Pour3.mp4", //pour3
+            correctAnswer: "Pour",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Run1.mp4", //run1
+            correctAnswer: "Run",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Run2.mp4", //run2
+            correctAnswer: "Run",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Run3.mp4", //run3
+            correctAnswer: "Run",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Pick1.mp4", //pick1
+            correctAnswer: "Pick",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Pick2.mp4", //pick2
+            correctAnswer: "Pick",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Pick3.mp4", //pick3
+            correctAnswer: "Pick",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Push1.mp4", //push1
+            correctAnswer: "Push",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Push2.mp4", //push2
+            correctAnswer: "Push",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Push3.mp4", //push3
+            correctAnswer: "Push",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Walk1.mp4", //walk1
+            correctAnswer: "Walk",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Walk2.mp4", //walk2
+            correctAnswer: "Walk",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Walk3.mp4", //walk3
+            correctAnswer: "Walk",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Wave1.mp4", //wave1
+            correctAnswer: "Wave",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Wave2.mp4", //wave2
+            correctAnswer: "Wave",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        },
+        {
+            videoUrl: "exp_videos/Wave3.mp4", //wave3
+            correctAnswer: "Wave",
+            options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
+        }
         
     ];
     function shuffleArray(array) {
@@ -361,7 +476,7 @@
                         left: 0; 
                         width: 100%; 
                         height: 100%; 
-                        background-color: rgba(0, 0, 0, 0.85); 
+                        background-color: black;
                         z-index: 10; 
                         display: flex;
                         justify-content: center;
@@ -376,7 +491,7 @@
             </div>
         `;
 
-        // 建立選項按鈕
+        // Create option buttons
         optionsContainer.innerHTML = '';
         question.options.forEach(option => {
             const button = document.createElement('button');
@@ -385,7 +500,7 @@
             optionsContainer.appendChild(button);
         });
 
-        // 計時起點改在 removeCover()，這裡不再設 startTime
+        // The timing start point is moved to removeCover(), so we no longer set startTime here
         currentQuestionIndex = index;
     }
 
