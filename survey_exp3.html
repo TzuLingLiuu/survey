@@ -6,17 +6,18 @@
     <title>Video Action Classification Research Survey</title>
     <style>
         /* CSS Styles */
-        .header-logo {
-            position: fixed;         /* 固定位置，不隨捲動 */
-            top: 20px;               /* 距離上方 */
-            right: 20px;             /* 距離右方 */
-            z-index: 1000;           /* 置於最上層 */
+        .quiz-container {
+            position: relative;  
         }
 
-        .header-logo img {
-            height: 60px;            /* 你可自行調整大小 */
+        .survey-logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            height: 60px;           
             width: auto;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f4f9;
@@ -98,12 +99,10 @@
     </style>
 </head>
 <body>
-    <header class="header-logo">
-        <img src="assets/usask_logo.png" alt="University of Saskatchewan Logo">
-    </header>
 
     <div class="quiz-container">
         
+        <img class="survey-logo" src="assets/usask_logo.png" alt="University of Saskatchewan Logo">
         <div id="page1" class="page active">
             <h1>🎥 A Comparative Analysis of Action Classification between Large Vision-Language Models and Human Observers </h1>
             
