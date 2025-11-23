@@ -37,9 +37,22 @@
             text-align: center;
             margin: 20px 0;
         }
+        #video-wrapper {
+            width: 640px;
+            height: 360px;
+            margin: 0 auto;
+            position: relative;   /* 給 overlay 用 */
+            background: black;
+            overflow: hidden;
+        }
+
+        /* 讓 <video> 填滿這個區域 */
+        #video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 填滿畫面，可能裁掉一點邊 */
+        }
         .video-container video {
-            max-width: 100%;
-            height: auto;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
@@ -220,63 +233,7 @@
             correctAnswer: "Drink",
             options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
         },
-        // {
-        //     videoUrl: "https://drive.google.com/file/d/1B8hlLNM_n0yFRAVls7PoxVGjn-jhgLST/preview?autoplay=1", //drink2
-        //     correctAnswer: "Drink",
-        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
-        // },
-        // {
-        //     videoUrl: "https://drive.google.com/file/d/1qjqepZEw1_3LDlpb4tFXjIOnPFF6cxAT/preview?autoplay=1", //drink3
-        //     correctAnswer: "Drink",
-        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
-        // },
-        // {
-        //     videoUrl: "https://drive.google.com/file/d/1A0952HA94e5Xe8_mWFCValwWrCfCp1mK/preview?autoplay=1", 
-        //     correctAnswer: "Jump",
-        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
-        // },
-        // {
-        //     videoUrl: "https://drive.google.com/file/d/1__4NOysQJzUWAraGaJqNfNZb3tgVxBXi/preview?autoplay=1", 
-        //     correctAnswer: "Pick",
-        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
-        // },
         
-        // {
-        //     videoUrl: "https://drive.google.com/file/d//preview", 
-        //     correctAnswer: "",
-        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
-        // },
-        // {
-        //     videoUrl: "https://drive.google.com/file/d//preview", 
-        //     correctAnswer: "",
-        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
-        // },
-        // {
-        //     videoUrl: "https://drive.google.com/file/d//preview", 
-        //     correctAnswer: "",
-        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
-        // },
-        // {
-        //     videoUrl: "https://drive.google.com/file/d//preview", 
-        //     correctAnswer: "",
-        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
-        // },
-        // {
-        //     videoUrl: "https://drive.google.com/file/d//preview", 
-        //     correctAnswer: "",
-        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
-        // },
-        // {
-        //     videoUrl: "https://drive.google.com/file/d//preview", 
-        //     correctAnswer: "",
-        //     options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"]
-        // },
-        // // **ADD MORE QUESTIONS HERE**
-        // {
-        //     videoUrl: "C:\\Users\\chloe\\OneDrive\\文件\\CMPT865\\Project\\video\\(HQ)_Rock_Climbing_-_Free_Solo_Speed_Climb_-_Dan_Osman_climb_f_cm_np1_ba_med_0.avi",
-        //     correctAnswer: "Eating",
-        //     options: ["Drinking", "Eating", "Dancing", "Reading"]
-        // }
     ];
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -349,19 +306,18 @@
      */
     function removeCover() {
         const cover = document.getElementById('cover-overlay');
-        const iframe = document.getElementById('video-iframe');
+        const video = document.getElementById('exp-video');
 
-        // 1. 設定 reaction time 的起點（如果你希望從「開始看影片」算）
+        // From the moment the participant starts watching the video, start timing
         startTime = performance.now();
 
-        if (iframe) {
-            // 2. 在 Google Drive preview URL 後面加上 autoplay=1
-            //    例如原本是 .../preview  ->  .../preview?autoplay=1
-            let src = iframe.src;
-
-            if (!src.includes('autoplay=1')) {
-                const separator = src.includes('?') ? '&' : '?';
-                iframe.src = src + separator + 'autoplay=1';
+        if (video) {
+            // Try to play the video
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(err => {
+                    console.error('Video play blocked:', err);
+                });
             }
         }
 
@@ -371,9 +327,9 @@
     }
 
 
+
     function loadQuestion(index) {
         if (index >= quizData.length) {
-            // 題目全部做完
             finishQuiz();
             return;
         }
@@ -386,18 +342,17 @@
         // 題目標題
         questionTitle.textContent = `Question ${index + 1}/${quizData.length}: Action Classification Task`;
 
-        // 使用 Google Drive 的 preview iframe
+        // 用 HTML5 <video> 播放 GitHub Pages 上的 mp4
         embedContainer.innerHTML = `
-            <div id="video-wrapper" style="position: relative; width: 640px; height: 360px;">
-                <iframe
-                    id="video-iframe"
-                    src="${question.videoUrl}"
-                    width="640"
-                    height="360"
-                    frameborder="0"
-                    allow="autoplay"
-                    allowfullscreen>
-                </iframe>
+            <div id="video-wrapper">
+                <video
+                    id="exp-video"
+                    muted
+                    playsinline
+                >
+                    <source src="${question.videoUrl}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
                 <div 
                     id="cover-overlay" 
                     style="
@@ -406,13 +361,13 @@
                         left: 0; 
                         width: 100%; 
                         height: 100%; 
-                        background-color: black; 
+                        background-color: rgba(0, 0, 0, 0.85); 
                         z-index: 10; 
-                        display: flex; /* 使用 flexbox 居中文本 */
+                        display: flex;
                         justify-content: center;
                         align-items: center;
-                        color: white; /* 文本顏色 */
-                        font-size: 24px; /* 文本大小 */
+                        color: white;
+                        font-size: 24px;
                         cursor: pointer;
                     "
                     onclick="removeCover()">
@@ -420,7 +375,7 @@
                 </div>
             </div>
         `;
-      
+
         // 建立選項按鈕
         optionsContainer.innerHTML = '';
         question.options.forEach(option => {
@@ -430,13 +385,10 @@
             optionsContainer.appendChild(button);
         });
 
-        // 計時開始
-        // 計時開始
-        startTime = performance.now();
-
-        // startTime = performance.now();
+        // 計時起點改在 removeCover()，這裡不再設 startTime
         currentQuestionIndex = index;
     }
+
 
 
     function beginClassification() {
