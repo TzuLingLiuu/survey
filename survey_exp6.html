@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Action Classification Research Survey</title>
+    <style>
+        /* Layout & container */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .quiz-container {
+            position: relative;  /* for logo positioning */
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .survey-logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            height: 30px;
+            width: auto;
+        }
+
+        h1, h2, h3 {
+            color: #0056b3;
+        }
+
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+
+        /* Video styles */
+        .video-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #video-wrapper {
+            width: 640px;
+            height: 360px;
+            margin: 0 auto;
+            position: relative;
+            background: black;
+            overflow: hidden;
+        }
+
+        #video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-container video {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Buttons */
+        .options-container button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #e9ecef;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .options-container button:hover {
+            background-color: #cfe2ff;
+        }
+
+        .next-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .next-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Likert table */
+        .likert-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .likert-table th,
+        .likert-table td {
+            padding: 8px;
+            border-top: 1px solid #ccc;
+        }
+
+        .likert-table th {
+            text-align: center;
+        }
+
+        .likert-table td:first-child {
+            text-align: left;
+            width: 55%;
+        }
+
+        /* Textarea feedback */
+        #feedback-text {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <img class="survey-logo" src="assets/usask_logo.png" alt="University of Saskatchewan Logo">
+
+    <!-- Page 1: Consent -->
+    <div id="page1" class="page active">
+        <h1>🎥 A Comparative Analysis of Action Classification between Large Vision-Language Models and Human Observers</h1>
+
+        <h2>Invitation to Participate</h2>
+        <p>Hello,</p>
+        <p>You are cordially invited to participate in a research study titled: <strong>"A Comparative Analysis of Action Classification between Large Vision-Language Models and Human Observers."</strong></p>
+        <p>This research is being conducted by the Principal Investigator, Tzu Ling Liu (ywa826@usask.ca), at the University of Saskatchewan (Usask).</p>
+
+        <h2>Purpose of the Study</h2>
+        <p>The primary goal of this research is to compare the performance of <strong>human observers</strong> with that of <strong>Large Vision-Language Models (LVLMs)</strong> in <strong>video action classification</strong> tasks. Specifically, we aim to measure the <strong>accuracy of human subjective judgment</strong> and their corresponding <strong>reaction time</strong> when identifying different action categories shown in short video clips. Your participation will provide crucial human baseline data for this comparative study.</p>
+
+        <h2>Participation Details & Confidentiality</h2>
+        <ul>
+            <li><strong>Eligibility:</strong> You must be an adult with normal visual capability and able to understand the task instructions.</li>
+            <li><strong>Time Commitment:</strong> The estimated time required to complete this survey is approximately <strong>10 minutes</strong>.</li>
+            <li><strong>Voluntary Nature:</strong> Your participation is entirely voluntary. You may stop or refuse to continue at any time without penalty.</li>
+            <li><strong>Anonymity & Data Usage:</strong> This survey is conducted <strong>anonymously</strong>. All collected data will be processed via de-identification and used solely for academic research purposes.</li>
+            <li><strong>Irreversible Submission:</strong> Due to the anonymous nature, once you submit your responses, it will be impossible to identify and subsequently remove your data.</li>
+        </ul>
+
+        <hr>
+
+        <h2>✅ Consent Statement</h2>
+        <p>By clicking the button below, you are confirming that you have read and understood the information provided and voluntarily consent to participate in this anonymous research study.</p>
+
+        <button class="next-btn" onclick="nextPage(2)">I agree and want to proceed to demographics</button>
+    </div>
+
+    <!-- Page 2: Demographics -->
+    <div id="page2" class="page">
+        <h2>🧑‍🤝‍🧑 Demographic Information (Anonymous)</h2>
+        <p>Please fill in the following information. All data will be used for statistical analysis only.</p>
+
+        <label for="age">Age (Years):</label>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label>Gender:</label>
+        <select id="gender" name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other / Prefer not to say</option>
+        </select><br><br>
+
+        <label for="background">Professional Background (Select the most relevant):</label>
+        <select id="background" name="background">
+            <option value="none">None / Not Applicable</option>
+
+            <option value="cv">Computer Vision / Image Processing</option>
+            <option value="ai_ml">Artificial Intelligence / Machine Learning</option>
+            <option value="cs">Computer Science / Software Engineering</option>
+            <option value="data">Data Science / Data Analytics</option>
+            <option value="robotics">Robotics / Automation</option>
+
+            <option value="psychology">Psychology / Experimental Psychology</option>
+            <option value="neuroscience">Neuroscience / Cognitive Science</option>
+            <option value="hci">Human-Computer Interaction (HCI)</option>
+            <option value="linguistics">Linguistics / Natural Language Processing (NLP)</option>
+
+            <option value="ee">Electrical Engineering / Electronic Engineering</option>
+            <option value="me">Mechanical Engineering</option>
+            <option value="biomed">Biomedical Engineering</option>
+            <option value="physics">Physics</option>
+            <option value="math">Mathematics / Statistics</option>
+
+            <option value="sports">Sports Science / Kinesiology</option>
+            <option value="pt_ot">Physical Therapy / Occupational Therapy</option>
+            <option value="medicine">Medicine / Healthcare</option>
+
+            <option value="business">Business / Management</option>
+            <option value="humanities">Humanities / Social Sciences (General)</option>
+            <option value="art_design">Art / Design / Media Studies</option>
+
+            <option value="other_specific">Others</option>
+        </select><br><br>
+
+        <button class="next-btn" onclick="startQuiz()">Next</button>
+    </div>
+
+    <!-- Page 3: Instructions -->
+    <div id="page3" class="page">
+        <h2>📌 Instructions for the Upcoming Action Classification Task</h2>
+
+        <p>In the next section, you will watch a series of short video clips and determine the category of human action shown in each video.</p>
+
+        <h3>🎯 Task Procedure</h3>
+        <ul>
+            <li>The moment you click to start the video, the reaction time will begin recording.</li>
+            <li>You must select an answer <strong>as quickly and accurately as possible</strong>.</li>
+            <li>Your response speed and correctness will both be analyzed.</li>
+        </ul>
+
+        <h3>🧠 Action Categories</h3>
+        <p>There will be <strong>8 possible action categories</strong> for each video:</p>
+        <div style="background:#eef5ff; padding:10px; border-radius:8px; border:1px solid #d0d8e8;">
+            Drink, Jump, Pick, Pour, Push, Run, Walk, Wave
+        </div>
+
+        <h3>📹 Number of Trials</h3>
+        <p>You will classify a total of <strong>24 video clips</strong>. Each clip will display only one of the eight actions.</p>
+
+        <h3>⚠️ Important Notes</h3>
+        <ul>
+            <li>Once you select an answer, the next video will automatically appear.</li>
+            <li>Please stay focused and avoid external distractions.</li>
+            <li>There are no right or wrong strategies—respond naturally.</li>
+        </ul>
+
+        <button class="next-btn" onclick="beginClassification()">Start the Classification Task</button>
+    </div>
+
+    <!-- Quiz page -->
+    <div id="quiz-page" class="page">
+        <h3 id="question-title"></h3>
+
+        <div class="video-container">
+            <div id="video-embed-container" style="width: 640px; height: 360px; margin: 0 auto;"></div>
+            <p style="font-size: small;">*Please select your answer as quickly as possible.</p>
+        </div>
+
+        <div id="options-container" class="options-container"></div>
+    </div>
+
+    <!-- Likert Scale Page -->
+    <div id="likert-page" class="page">
+        <h2>📊 Post-Experiment Rating</h2>
+
+        <p>
+            Please rate the following statements about your experience in this experiment.
+            Use a 1–7 scale where:
+        </p>
+        <p>
+            <strong>1 = Strongly disagree</strong> &nbsp;&nbsp;&nbsp;
+            <strong>7 = Strongly agree</strong>
+        </p>
+
+        <table class="likert-table">
+            <tr>
+                <th style="text-align:left;">Statement</th>
+                <th colspan="7">Rating (1–7)</th>
+            </tr>
+
+            <!-- Q1 -->
+            <tr>
+                <td>
+                    The instructions were clear and easy to understand.
+                </td>
+                <td style="text-align:center;"><input type="radio" name="likert_instr" value="1"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_instr" value="2"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_instr" value="3"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_instr" value="4"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_instr" value="5"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_instr" value="6"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_instr" value="7"></td>
+            </tr>
+
+            <!-- Q2 -->
+            <tr>
+                <td>
+                    The user interface was intuitive and easy to use.
+                </td>
+                <td style="text-align:center;"><input type="radio" name="likert_ui" value="1"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_ui" value="2"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_ui" value="3"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_ui" value="4"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_ui" value="5"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_ui" value="6"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_ui" value="7"></td>
+            </tr>
+
+            <!-- Q3 -->
+            <tr>
+                <td>
+                    The video quality was sufficient to clearly recognize the actions.
+                </td>
+                <td style="text-align:center;"><input type="radio" name="likert_video" value="1"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_video" value="2"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_video" value="3"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_video" value="4"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_video" value="5"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_video" value="6"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_video" value="7"></td>
+            </tr>
+
+            <!-- Q4 -->
+            <tr>
+                <td>
+                    The action labels (Drink, Jump, Pick, etc.) were appropriate and unambiguous.
+                </td>
+                <td style="text-align:center;"><input type="radio" name="likert_labels" value="1"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_labels" value="2"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_labels" value="3"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_labels" value="4"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_labels" value="5"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_labels" value="6"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_labels" value="7"></td>
+            </tr>
+
+            <!-- Q5 -->
+            <tr>
+                <td>
+                    Overall, participating in this experiment was a positive experience.
+                </td>
+                <td style="text-align:center;"><input type="radio" name="likert_overall" value="1"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_overall" value="2"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_overall" value="3"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_overall" value="4"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_overall" value="5"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_overall" value="6"></td>
+                <td style="text-align:center;"><input type="radio" name="likert_overall" value="7"></td>
+            </tr>
+        </table>
+
+        <button class="next-btn" onclick="submitLikert()">Continue</button>
+    </div>
+
+    <!-- Free-text feedback page -->
+    <div id="feedback-page" class="page">
+        <h2>📝 Final Feedback (Optional)</h2>
+
+        <p>
+            Before completing the survey, we would greatly appreciate any comments
+            or suggestions you may have regarding the experimental design, interface
+            usability, or overall experience. Your feedback is valuable and may
+            help improve future studies.
+        </p>
+
+        <p>
+            <strong>Please answer in English if possible.</strong> You may skip this section if you prefer.
+        </p>
+
+        <label for="feedback-text">Your feedback:</label><br>
+        <textarea id="feedback-text" name="feedback-text" rows="6"
+                  placeholder="Please write your comments here (optional)..."></textarea><br><br>
+
+        <button class="next-btn" onclick="submitFeedback()">Submit and Finish</button>
+    </div>
+
+    <!-- Final thank-you page -->
+    <div id="finish-page" class="page">
+        <h1>🎉 Thank You for Your Participation</h1>
+
+        <p>Your responses have been successfully recorded and will be included in the analysis phase of this research study.</p>
+        <p>Your contribution is valuable and will assist in advancing our understanding of human performance in video-based action recognition.</p>
+
+        <p>If you have any questions regarding the study, please contact <strong>ywa826@usask.ca</strong>.</p>
+
+        <p>Sincerely appreciate your time and participation.</p>
+    </div>
+</div>
+
+<script>
+    // ---------------- Global data structure ----------------
+    const quizData = [
+        { videoUrl: "exp_videos/Drink1.mp4", correctAnswer: "Drink", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Drink2.mp4", correctAnswer: "Drink", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Drink3.mp4", correctAnswer: "Drink", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+
+        { videoUrl: "exp_videos/Jump1.mp4", correctAnswer: "Jump", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Jump2.mp4", correctAnswer: "Jump", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Jump3.mp4", correctAnswer: "Jump", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+
+        { videoUrl: "exp_videos/Pour1.mp4", correctAnswer: "Pour", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Pour2.mp4", correctAnswer: "Pour", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Pour3.mp4", correctAnswer: "Pour", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+
+        { videoUrl: "exp_videos/Run1.mp4", correctAnswer: "Run", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Run2.mp4", correctAnswer: "Run", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Run3.mp4", correctAnswer: "Run", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+
+        { videoUrl: "exp_videos/Pick1.mp4", correctAnswer: "Pick", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Pick2.mp4", correctAnswer: "Pick", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Pick3.mp4", correctAnswer: "Pick", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+
+        { videoUrl: "exp_videos/Push1.mp4", correctAnswer: "Push", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Push2.mp4", correctAnswer: "Push", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Push3.mp4", correctAnswer: "Push", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+
+        { videoUrl: "exp_videos/Walk1.mp4", correctAnswer: "Walk", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Walk2.mp4", correctAnswer: "Walk", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Walk3.mp4", correctAnswer: "Walk", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+
+        { videoUrl: "exp_videos/Wave1.mp4", correctAnswer: "Wave", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Wave2.mp4", correctAnswer: "Wave", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] },
+        { videoUrl: "exp_videos/Wave3.mp4", correctAnswer: "Wave", options: ["Drink", "Jump", "Pick", "Pour", "Push", "Run", "Walk", "Wave"] }
+    ];
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function addOriginalIndex(array) {
+        array.forEach((question, index) => {
+            question.originalIndex = index;
+        });
+    }
+
+    addOriginalIndex(quizData);
+    shuffleArray(quizData);
+
+    let currentQuestionIndex = 0;
+    let startTime;
+    let uniqueID = null;
+
+    const allResponses = {
+        demographics: {},
+        questions: [],
+        likert: {},
+        feedback: ""
+    };
+
+    const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyytLSsCE_e6OOk3j71M-gJzGb7kLbTvOViztpTKaJJE63O4L85_16TuhvfRP2cs1_A/exec';
+
+    // ---------------- Page control ----------------
+    function nextPage(pageNum) {
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+        document.getElementById(`page${pageNum}`).classList.add('active');
+    }
+
+    function showPageById(id) {
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+        document.getElementById(id).classList.add('active');
+    }
+
+    // ---------------- Demographics ----------------
+    function startQuiz() {
+        uniqueID = 'UID-' + Date.now() + Math.floor(Math.random() * 1000);
+
+        allResponses.demographics = {
+            unique_id: uniqueID,
+            age: document.getElementById('age').value,
+            gender: document.getElementById('gender').value,
+            background: document.getElementById('background').value
+        };
+
+        if (!allResponses.demographics.age || allResponses.demographics.age <= 0) {
+            alert("Please enter a valid age.");
+            return;
+        }
+
+        nextPage(3);
+    }
+
+    // ---------------- Video and quiz ----------------
+    function removeCover() {
+        const cover = document.getElementById('cover-overlay');
+        const video = document.getElementById('exp-video');
+
+        startTime = performance.now();
+
+        if (video) {
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(err => {
+                    console.error('Video play blocked:', err);
+                });
+            }
+        }
+
+        if (cover) {
+            cover.remove();
+        }
+    }
+
+    function loadQuestion(index) {
+        if (index >= quizData.length) {
+            finishQuiz();
+            return;
+        }
+
+        const question = quizData[index];
+        const embedContainer = document.getElementById('video-embed-container');
+        const optionsContainer = document.getElementById('options-container');
+        const questionTitle = document.getElementById('question-title');
+
+        questionTitle.textContent = `Question ${index + 1}/${quizData.length}: Action Classification Task`;
+
+        embedContainer.innerHTML = `
+            <div id="video-wrapper">
+                <video
+                    id="exp-video"
+                    muted
+                    playsinline
+                >
+                    <source src="${question.videoUrl}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div 
+                    id="cover-overlay" 
+                    style="
+                        position: absolute; 
+                        top: 0; 
+                        left: 0; 
+                        width: 100%; 
+                        height: 100%; 
+                        background-color: black;
+                        z-index: 10; 
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: white;
+                        font-size: 24px;
+                        cursor: pointer;
+                    "
+                    onclick="removeCover()">
+                    Click to Start Video
+                </div>
+            </div>
+        `;
+
+        optionsContainer.innerHTML = '';
+        question.options.forEach(option => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.onclick = () => recordResponse(option);
+            optionsContainer.appendChild(button);
+        });
+
+        currentQuestionIndex = index;
+    }
+
+    function beginClassification() {
+        showPageById('quiz-page');
+        loadQuestion(0);
+    }
+
+    function recordResponse(selectedAnswer) {
+        const endTime = performance.now();
+        const reactionTime = (endTime - startTime) / 1000;
+
+        const currentQuestion = quizData[currentQuestionIndex];
+        const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
+        const originalQuestionNumber = currentQuestion.originalIndex + 1;
+
+        allResponses.questions.push({
+            q_index: originalQuestionNumber,
+            video_url: currentQuestion.videoUrl,
+            selected_answer: selectedAnswer,
+            correct_answer: currentQuestion.correctAnswer,
+            is_correct: isCorrect,
+            reaction_time_s: reactionTime.toFixed(3)
+        });
+
+        loadQuestion(currentQuestionIndex + 1);
+    }
+
+    // ---------------- After quiz: go to Likert ----------------
+    function finishQuiz() {
+        showPageById('likert-page');
+    }
+
+    // ---------------- Likert handling ----------------
+    function getLikertValue(groupName) {
+        const checked = document.querySelector(`input[name="${groupName}"]:checked`);
+        return checked ? parseInt(checked.value, 10) : null;
+    }
+
+    function submitLikert() {
+        const instr   = getLikertValue('likert_instr');
+        const ui      = getLikertValue('likert_ui');
+        const video   = getLikertValue('likert_video');
+        const labels  = getLikertValue('likert_labels');
+        const overall = getLikertValue('likert_overall');
+
+        if ([instr, ui, video, labels, overall].some(v => v === null)) {
+            alert("Please rate all statements before continuing.");
+            return;
+        }
+
+        allResponses.likert = {
+            instructions_clarity: instr,
+            ui_usability: ui,
+            video_quality: video,
+            label_appropriateness: labels,
+            overall_experience: overall
+        };
+
+        showPageById('feedback-page');
+    }
+
+    // ---------------- Free-text feedback ----------------
+    function submitFeedback() {
+        const feedbackText = document.getElementById('feedback-text').value.trim();
+        allResponses.feedback = feedbackText.length > 0 ? feedbackText : "No feedback provided.";
+
+        submitAllData();
+    }
+
+    // ---------------- Final submission ----------------
+    function submitAllData() {
+        showPageById('finish-page');
+
+        fetch(GOOGLE_APP_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            body: JSON.stringify(allResponses)
+        })
+        .then(response => {
+            console.log("Data successfully sent to Google Sheet via Apps Script.");
+        })
+        .catch(error => {
+            console.error('Error sending data to Google Sheet:', error);
+            console.log("TESTER VIEW: Please report this error: Data submission failed.");
+        });
+
+        console.log("--- RESEARCH DATA START (Local Copy) ---");
+        console.log(JSON.stringify(allResponses, null, 2));
+        console.log("--- RESEARCH DATA END ---");
+    }
+</script>
+</body>
+</html>
